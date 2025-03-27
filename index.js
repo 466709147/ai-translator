@@ -7,7 +7,10 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
-app.use(cors());
+// Enable CORS for all origins (for testing purposes)
+app.use(cors({
+  origin: '*'
+}));
 
 // 初始化OpenAI客户端
 const openai = new OpenAI({
@@ -102,3 +105,5 @@ app.listen(port, () => {
   console.log(`后端翻译代理服务运行于 http://localhost:${port}`);
 });
 
+// Important for Vercel deployment
+module.exports = app;
