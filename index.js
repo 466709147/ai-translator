@@ -7,6 +7,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
+
 // Enable CORS for all origins (for testing purposes)
 app.use(cors({
   origin: '*'
