@@ -9,9 +9,7 @@ const port = 3000;
 app.use(express.json());
 
 // Enable CORS for all origins (for testing purposes)
-app.use(cors({
-  origin: '*'
-}));
+app.use(cors());
 
 // 初始化OpenAI客户端
 const openai = new OpenAI({
