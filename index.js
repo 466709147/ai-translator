@@ -82,15 +82,15 @@ app.post('/api/translate', async (req, res) => {
   const sourceLanguage = languageMap[sourceLang] || '自动检测';
   const targetLanguage = languageMap[targetLang] || '英文';
 
-  const prompt = sourceLang === 'auto' 
-    ? `请将以下文本翻译为${targetLanguage}：`
-    : `请将以下${sourceLanguage}文本翻译为${targetLanguage}：`;
+  const prompt = sourceLang === 'auto'
+  ? `请将以下文本翻译为${targetLanguage}。如果某段文字已经是${targetLanguage}，请原样保留。请保留原始格式和标记（如 HTML、Markdown 标签等），不要添加任何注释、提示或多余说明，仅输出翻译后的内容：`
+  : `请将以下${sourceLanguage}文本翻译为${targetLanguage}。如果某段文字已经是${targetLanguage}，请原样保留。请保留原始格式和标记（如 HTML、Markdown 标签等），不要添加任何注释、提示或多余说明，仅输出翻译后的内容：`;
 
   try {
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o',
       messages: [
-        { role: 'system', content: '你是一个专业翻译引擎。' },
+        { role: 'system', content: '你是一个严谨的专业翻译引擎，翻译时需保留格式和标记结构。' },
         { role: 'user', content: `${prompt}\n\n${text}` }
       ],
       temperature: 0.2,
