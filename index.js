@@ -106,7 +106,7 @@ app.post('/api/translate', async (req, res) => {
 
   try {
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4.1',
+      model: 'gpt-4o',
       messages: [
         { role: 'system', content: '你是一个严谨的专业翻译引擎，翻译时需保留格式和标记结构。' },
         { role: 'user', content: `${prompt}\n\n${text}` }
