@@ -101,12 +101,12 @@ app.post('/api/translate', async (req, res) => {
   const targetLanguage = languageMap[targetLang] || '英文';
 
   const prompt = sourceLang === 'auto'
-  ? `请将以下文本翻译为${targetLanguage}。请将’好博译’译为’Giltbridge’，保留原始格式和标记（如 HTML、Markdown 标签等），不要添加任何注释、提示或多余说明，仅输出翻译后的内容：`
-  : `请将以下${sourceLanguage}文本翻译为${targetLanguage}。请将’好博译’译为’Giltbridge’，保留原始格式和标记（如 HTML、Markdown 标签等），不要添加任何注释、提示或多余说明，仅输出翻译后的内容：`;
+  ? `请将以下文本翻译为${targetLanguage}，并对基础译文进行优化润色。请将’好博译’译为’Giltbridge’。请确保相关术语翻译准确。涉及专利文本的,请使用专利相关用语,如, An agricultural greenhouse artificial climate experiment control system ..., comprising ...,以及configured to (用于)，在同一权利要求内中使用小写拼写。保留原始格式和标记（如 HTML、Markdown 标签等），不要添加任何注释、提示或多余说明，仅输出翻译后的内容：`
+  : `请将以下${sourceLanguage}文本翻译为${targetLanguage}，并对基础译文进行优化润色。请将’好博译’译为’Giltbridge’。请确保相关术语翻译准确。涉及专利文本的,请使用专利相关用语,如, An agricultural greenhouse artificial climate experiment control system ..., comprising ...,以及configured to (用于)，在同一权利要求内中使用小写拼写。保留原始格式和标记（如 HTML、Markdown 标签等），不要添加任何注释、提示或多余说明，仅输出翻译后的内容：`
 
   try {
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'gpt-4.1',
       messages: [
         { role: 'system', content: '你是一个严谨的专业翻译引擎，翻译时需保留格式和标记结构。' },
         { role: 'user', content: `${prompt}\n\n${text}` }
